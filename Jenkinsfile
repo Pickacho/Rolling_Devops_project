@@ -1,14 +1,20 @@
 pipeline {
-  agent any
-  stages {
-        stage('Github_pull_prod') {
-          steps {
-            git(url: 'https://github.com/Pickacho/Rolling_Devops_project.git', branch: 'Prod', credentialsId: '12', poll: true)
-          }
+    agent any
+    stages {
+        stage('---clean---') {
+            steps {
+                sh "mvn clean"
+            }
         }
-
-      }
+        stage('--test--') {
+            steps {
+                sh "mvn test"
+            }
+        }
+        stage('--package--') {
+            steps {
+                sh "mvn package"
+            }
+        }
     }
-
-  }
 }
