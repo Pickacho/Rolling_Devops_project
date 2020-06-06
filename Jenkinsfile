@@ -1,13 +1,20 @@
 pipeline {
-  agent any
-  stages {
-    stage('githubpull') {
-      steps {
-        git(url: 'https://github.com/Pickacho/Rolling_Devops_project.git', branch: 'Dev', poll: true, credentialsId: '1')
-        sh '''whoami
-ls'''
-      }
+    agent any
+    stages {
+        stage('---clean---') {
+            steps {
+                sh "mvn clean"
+            }
+        }
+        stage('--test--') {
+            steps {
+                sh "mvn test"
+            }
+        }
+        stage('--package--') {
+            steps {
+                sh "mvn package"
+            }
+        }
     }
-
-  }
 }
